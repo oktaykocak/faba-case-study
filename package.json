@@ -1,0 +1,28 @@
+{
+  "name": "ecommerce-microservices",
+  "version": "1.0.0",
+  "description": "E-commerce order processing system using microservices and event-driven architecture",
+  "scripts": {
+    "build": "npm run build:order && npm run build:inventory && npm run build:notification",
+    "build:order": "cd services/order-service && npm run build",
+    "build:inventory": "cd services/inventory-service && npm run build",
+    "build:notification": "cd services/notification-service && npm run build",
+    "start:dev": "concurrently \"npm run start:dev:order\" \"npm run start:dev:inventory\" \"npm run start:dev:notification\"",
+    "start:dev:order": "cd services/order-service && npm run start:dev",
+    "start:dev:inventory": "cd services/inventory-service && npm run start:dev",
+    "start:dev:notification": "cd services/notification-service && npm run start:dev",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "install:all": "npm install && npm run install:order && npm run install:inventory && npm run install:notification",
+    "install:order": "cd services/order-service && npm install",
+    "install:inventory": "cd services/inventory-service && npm install",
+    "install:notification": "cd services/notification-service && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "workspaces": [
+    "services/*",
+    "shared/*"
+  ]
+}

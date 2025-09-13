@@ -1,0 +1,8 @@
+export enum InventoryAction {
+  CREATED = 'CREATED',
+  UPDATED = 'UPDATED',
+  RESERVED = 'RESERVED',
+  RELEASED = 'RELEASED',
+  CONFIRMED = 'CONFIRMED',
+  DELIVERED = 'DELIVERED',
+}
