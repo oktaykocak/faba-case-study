@@ -464,7 +464,7 @@ npm run test:e2e
 for i in {1..100}; do
   curl -X POST http://localhost:3001/orders \
     -H "Content-Type: application/json" \
-    -d '{"customerId":"test-'$i'","items":[{"productId":"product-1","quantity":1,"price":29.99}]}'
+    -d '{"customerId":"test-'$i'","items":[{"productId":"product-1","quantity":1}]}'
 done
 ```
 
