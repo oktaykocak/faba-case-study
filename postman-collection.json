@@ -254,25 +254,6 @@
             },
             "description": "Delete an inventory item"
           }
-        },
-        {
-          "name": "Check Low Stock Items",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{INVENTORY_SERVICE_URL}}/inventory/low-stock?threshold=10",
-              "host": ["{{INVENTORY_SERVICE_URL}}"],
-              "path": ["inventory", "low-stock"],
-              "query": [
-                {
-                  "key": "threshold",
-                  "value": "10"
-                }
-              ]
-            },
-            "description": "Get items with low stock"
-          }
         }
       ]
     },
