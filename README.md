@@ -64,7 +64,7 @@ A comprehensive e-commerce order processing system built with microservices arch
    - Order Service: http://localhost:3001
    - Inventory Service: http://localhost:3002
    - Notification Service: http://localhost:3003
-   - RabbitMQ Management: http://localhost:15672 (admin/password)
+   - RabbitMQ Management: http://localhost:15672 (oktay/password)
 
 5. **Test APIs with Postman**
    ```bash
@@ -99,6 +99,20 @@ A comprehensive e-commerce order processing system built with microservices arch
    - Inventory Service releases reserved inventory
    - Notification Service sends cancellation notification
 
+### Order Status Update Flow
+
+1. **Order Shipped**
+   - Admin updates order status to `SHIPPED` via Order Service
+   - Order Service publishes `order.shipped` event
+   - Notification Service sends shipping confirmation
+   - Tracking information can be included
+
+2. **Order Delivered**
+   - Admin updates order status to `DELIVERED` via Order Service
+   - Order Service publishes `order.delivered` event
+   - Inventory Service confirms delivery (optional inventory adjustments)
+   - Notification Service sends delivery confirmation
+
 ### Inventory Update Flow
 
 1. **Inventory Updated**
@@ -112,6 +126,7 @@ A comprehensive e-commerce order processing system built with microservices arch
 
 - `order.created`: New order created
 - `order.cancelled`: Order cancelled
+- `order.shipped`: Order shipped
 - `order.delivered`: Order delivered
 - `inventory.reserved`: Inventory successfully reserved
 - `inventory.reservation.failed`: Inventory reservation failed
@@ -327,6 +342,30 @@ Content-Type: application/json
 
 {
   "reason": "Customer requested cancellation"
+}
+```
+
+#### Update Order Status to Shipped
+```http
+PATCH /orders/:id/status
+Content-Type: application/json
+
+{
+  "status": "SHIPPED",
+  "trackingNumber": "TRK123456789",
+  "carrier": "DHL"
+}
+```
+
+#### Update Order Status to Delivered
+```http
+PATCH /orders/:id/status
+Content-Type: application/json
+
+{
+  "status": "DELIVERED",
+  "deliveredAt": "2025-01-15T10:30:00Z",
+  "signature": "Customer signature received"
 }
 ```
 
