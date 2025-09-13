@@ -1,0 +1,511 @@
+{
+  "info": {
+    "_postman_id": "faba-ecommerce-collection",
+    "name": "E-commerce Microservices API Collection",
+    "description": "Comprehensive API collection for E-commerce microservices system with Order, Inventory, and Notification services",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "faba-case-study"
+  },
+  "item": [
+    {
+      "name": "Order Service",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/health",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["health"]
+            },
+            "description": "Check order service health status"
+          }
+        },
+        {
+          "name": "Liveness Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/health/live",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["health", "live"]
+            },
+            "description": "Kubernetes liveness probe endpoint"
+          }
+        },
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"customer-123\",\n  \"items\": [\n    {\n      \"productId\": \"product-1\",\n      \"quantity\": 2,\n      \"price\": 29.99\n    },\n    {\n      \"productId\": \"product-2\",\n      \"quantity\": 1,\n      \"price\": 49.99\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/orders",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["orders"]
+            },
+            "description": "Create a new order"
+          }
+        },
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/orders",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["orders"]
+            },
+            "description": "Get all orders"
+          }
+        },
+        {
+          "name": "Get Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/orders/{{ORDER_ID}}",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["orders", "{{ORDER_ID}}"]
+            },
+            "description": "Get specific order by ID"
+          }
+        },
+        {
+          "name": "Get Orders by Customer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/orders/customer/{{CUSTOMER_ID}}",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["orders", "customer", "{{CUSTOMER_ID}}"]
+            },
+            "description": "Get all orders for a specific customer"
+          }
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Customer requested cancellation\"\n}"
+            },
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/orders/{{ORDER_ID}}/cancel",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["orders", "{{ORDER_ID}}", "cancel"]
+            },
+            "description": "Cancel an existing order"
+          }
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"DELIVERED\"\n}"
+            },
+            "url": {
+              "raw": "{{ORDER_SERVICE_URL}}/orders/{{ORDER_ID}}/status",
+              "host": ["{{ORDER_SERVICE_URL}}"],
+              "path": ["orders", "{{ORDER_ID}}", "status"]
+            },
+            "description": "Update order status"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory Service",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/health",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["health"]
+            },
+            "description": "Check inventory service health status"
+          }
+        },
+        {
+          "name": "Liveness Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/health/live",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["health", "live"]
+            },
+            "description": "Kubernetes liveness probe endpoint"
+          }
+        },
+        {
+          "name": "Get All Inventory Items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/inventory",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["inventory"]
+            },
+            "description": "Get all inventory items"
+          }
+        },
+        {
+          "name": "Get Inventory Item by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/inventory/{{PRODUCT_ID}}",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["inventory", "{{PRODUCT_ID}}"]
+            },
+            "description": "Get specific inventory item by product ID"
+          }
+        },
+        {
+          "name": "Create Inventory Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productId\": \"product-1\",\n  \"quantity\": 100,\n  \"price\": 29.99,\n  \"productName\": \"Sample Product\",\n  \"description\": \"A sample product for testing\"\n}"
+            },
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/inventory",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["inventory"]
+            },
+            "description": "Create a new inventory item"
+          }
+        },
+        {
+          "name": "Update Inventory Item",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 150,\n  \"price\": 34.99\n}"
+            },
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/inventory/{{PRODUCT_ID}}",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["inventory", "{{PRODUCT_ID}}"]
+            },
+            "description": "Update inventory item quantity and price"
+          }
+        },
+        {
+          "name": "Delete Inventory Item",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/inventory/{{PRODUCT_ID}}",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["inventory", "{{PRODUCT_ID}}"]
+            },
+            "description": "Delete an inventory item"
+          }
+        },
+        {
+          "name": "Check Low Stock Items",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{INVENTORY_SERVICE_URL}}/inventory/low-stock?threshold=10",
+              "host": ["{{INVENTORY_SERVICE_URL}}"],
+              "path": ["inventory", "low-stock"],
+              "query": [
+                {
+                  "key": "threshold",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Get items with low stock"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notification Service",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/health",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["health"]
+            },
+            "description": "Check notification service health status"
+          }
+        },
+        {
+          "name": "Send Notification",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"EMAIL\",\n  \"recipient\": \"user@example.com\",\n  \"subject\": \"Order Confirmation\",\n  \"message\": \"Your order has been confirmed\",\n  \"metadata\": {\n    \"orderId\": \"order-123\",\n    \"customerId\": \"customer-123\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["notifications"]
+            },
+            "description": "Send a notification"
+          }
+        },
+        {
+          "name": "Get All Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["notifications"]
+            },
+            "description": "Get all notifications"
+          }
+        },
+        {
+          "name": "Get Notification by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications/{{NOTIFICATION_ID}}",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["notifications", "{{NOTIFICATION_ID}}"]
+            },
+            "description": "Get specific notification by ID"
+          }
+        },
+        {
+          "name": "Get Notifications by Recipient",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications/recipient/{{RECIPIENT_EMAIL}}",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["notifications", "recipient", "{{RECIPIENT_EMAIL}}"]
+            },
+            "description": "Get all notifications for a specific recipient"
+          }
+        },
+        {
+          "name": "Get Failed Notifications",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications/failed/list",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["notifications", "failed", "list"]
+            },
+            "description": "Get all failed notifications"
+          }
+        },
+        {
+          "name": "Retry Failed Notification",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications/{{NOTIFICATION_ID}}/retry",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["notifications", "{{NOTIFICATION_ID}}", "retry"]
+            },
+            "description": "Retry a failed notification"
+          }
+        },
+        {
+          "name": "Mark Notification as Processed",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications/{{NOTIFICATION_ID}}/mark-processed",
+              "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+              "path": ["notifications", "{{NOTIFICATION_ID}}", "mark-processed"]
+            },
+            "description": "Mark notification as processed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Integration Tests",
+      "item": [
+        {
+          "name": "Complete Order Flow",
+          "item": [
+            {
+              "name": "1. Create Order",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customerId\": \"integration-test-customer\",\n  \"items\": [\n    {\n      \"productId\": \"product-1\",\n      \"quantity\": 1,\n      \"price\": 29.99\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{ORDER_SERVICE_URL}}/orders",
+                  "host": ["{{ORDER_SERVICE_URL}}"],
+                  "path": ["orders"]
+                },
+                "description": "Step 1: Create order for integration test"
+              }
+            },
+            {
+              "name": "2. Check Inventory Reservation",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{INVENTORY_SERVICE_URL}}/inventory/product-1",
+                  "host": ["{{INVENTORY_SERVICE_URL}}"],
+                  "path": ["inventory", "product-1"]
+                },
+                "description": "Step 2: Verify inventory was reserved"
+              }
+            },
+            {
+              "name": "3. Check Order Status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{ORDER_SERVICE_URL}}/orders/{{ORDER_ID}}",
+                  "host": ["{{ORDER_SERVICE_URL}}"],
+                  "path": ["orders", "{{ORDER_ID}}"]
+                },
+                "description": "Step 3: Check if order status updated"
+              }
+            },
+            {
+              "name": "4. Check Notifications",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{NOTIFICATION_SERVICE_URL}}/notifications",
+                  "host": ["{{NOTIFICATION_SERVICE_URL}}"],
+                  "path": ["notifications"]
+                },
+                "description": "Step 4: Verify notifications were sent"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "ORDER_SERVICE_URL",
+      "value": "http://localhost:3001",
+      "description": "Order Service Base URL"
+    },
+    {
+      "key": "INVENTORY_SERVICE_URL",
+      "value": "http://localhost:3002",
+      "description": "Inventory Service Base URL"
+    },
+    {
+      "key": "NOTIFICATION_SERVICE_URL",
+      "value": "http://localhost:3003",
+      "description": "Notification Service Base URL"
+    },
+    {
+      "key": "ORDER_ID",
+      "value": "replace-with-actual-order-id",
+      "description": "Sample Order ID for testing"
+    },
+    {
+      "key": "CUSTOMER_ID",
+      "value": "customer-123",
+      "description": "Sample Customer ID for testing"
+    },
+    {
+      "key": "PRODUCT_ID",
+      "value": "product-1",
+      "description": "Sample Product ID for testing"
+    },
+    {
+      "key": "NOTIFICATION_ID",
+      "value": "replace-with-actual-notification-id",
+      "description": "Sample Notification ID for testing"
+    },
+    {
+      "key": "RECIPIENT_EMAIL",
+      "value": "user@example.com",
+      "description": "Sample recipient email for testing"
+    }
+  ]
+}
