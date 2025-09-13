@@ -39,7 +39,7 @@ A comprehensive e-commerce order processing system built with microservices arch
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/oktaykocak/faba-case-study.git
    cd faba-case-study
    ```
 
@@ -48,27 +48,31 @@ A comprehensive e-commerce order processing system built with microservices arch
    npm run install:all
    ```
 
-3. **Start infrastructure services**
+3. **Start all services with Docker Compose**
    ```bash
-   docker-compose up -d rabbitmq postgres-order postgres-inventory postgres-notification
-   ```
-
-4. **Start microservices**
-   ```bash
-   # Development mode
-   npm run start:dev
+   # Start all services (infrastructure + microservices)
+   docker-compose up -d
    
-   # Or start individual services
-   npm run start:dev:order
-   npm run start:dev:inventory
-   npm run start:dev:notification
+   # Or build and start (for fresh deployment)
+   docker-compose up -d --build
+   
+   # Check service status
+   docker-compose ps
    ```
 
-5. **Access services**
+4. **Access services**
    - Order Service: http://localhost:3001
    - Inventory Service: http://localhost:3002
    - Notification Service: http://localhost:3003
    - RabbitMQ Management: http://localhost:15672 (admin/password)
+
+5. **Test APIs with Postman**
+   ```bash
+   # Import the Postman collection
+   # File: postman-collection.json
+   # Contains 27+ API endpoints for all services
+   # Pre-configured environment variables included
+   ```
 
 ## 📋 Event Flows
 
